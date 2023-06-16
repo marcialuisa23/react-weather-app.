@@ -8,7 +8,7 @@ export default function FormattedDate(props) {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
   let day = days[props.date.getDay()];
   let hours = props.date.getHours();
@@ -21,6 +21,8 @@ export default function FormattedDate(props) {
     minutes = `0${minutes}`;
   }
   return (
-      `${day} ${hours}:${minutes}`
-     );
+    <div>
+      {day} {hours}:{minutes}
+    </div>
+  );
 }
