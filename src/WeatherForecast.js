@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./WeatherForecast.css";
 import axios from "axios";
+import WeatherForecastDay from "./WeatherForecastDay";
 
 export default function WeatherForecast(props) {
   let [loaded, setLoaded] = useState(false);
@@ -9,31 +10,26 @@ export default function WeatherForecast(props) {
     setForecast(response.data.daily);
     setLoaded(true);
   }
+  useEffect(() => {
+    setLoaded(false);
+  }, [props.city]);
 
   if (loaded) {
     console.log(forecast);
     return (
       <div className="WeatherForecast">
         <div className="row">
-          <div className="col">
-            <div className="WeatherForecast-day"> {forecast[0].time}</div>
-            <div className="WeatherForecast-icon">
-              {" "}
-              <img
-                src={forecast[0].condition.icon_url}
-                alt={forecast[0].condition.description}
-              />{" "}
-            </div>
-            <div className="WeatherForecast-temperatures">
-              <span className="WeatherForecast-temperature-max">
-                {" "}
-                {forecast[0].temperature.maximum}°
-              </span>
-              <span className="WeatherForecast-temperature-min">
-                {" "}
-                {forecast[0].temperature.minimum}°
-              </span>
-            </div>
+          <div className="col-3">
+            <WeatherForecastDay data={forecast[0]} />
+          </div>
+          <div className="col-3">
+            <WeatherForecastDay data={forecast[1]} />
+          </div>
+          <div className="col-3">
+            <WeatherForecastDay data={forecast[2]} />
+          </div>
+          <div className="col-3">
+            <WeatherForecastDay data={forecast[3]} />
           </div>
         </div>
       </div>
